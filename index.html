@@ -3,53 +3,102 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Sakhir Travel & Cargo Agency delivers premium flight, hotel, tour, cargo and visa services with business analytics and SEO-ready integrations." />
-    <meta name="keywords" content="travel agency, cargo logistics, visa services, hotel booking, flight booking, analytics dashboard" />
-    <meta name="author" content="Sakhir Travel & Cargo Agency" />
-    <meta name="robots" content="index, follow" />
-    <meta name="google-site-verification" content="replace-with-your-google-site-verification-token" />
-    <meta name="theme-color" content="#0F172A" />
-    <meta property="og:title" content="Sakhir Travel & Cargo Agency" />
-    <meta property="og:description" content="Premium travel, cargo, visa and booking services with reports and analytics for modern travel operations." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://sakhirtravelcargo.com/" />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80" />
-    <meta property="og:site_name" content="Sakhir Travel & Cargo Agency" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sakhir Travel & Cargo Agency" />
-    <meta name="twitter:description" content="Premium travel, cargo, visa and booking services with reports and analytics for modern travel operations." />
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80" />
-    <link rel="canonical" href="https://sakhirtravelcargo.com/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <script>
-      const gaMeasurementId = '%VITE_GA_MEASUREMENT_ID%';
-      const gtmContainerId = '%VITE_GTM_CONTAINER_ID%';
 
-      if (gaMeasurementId && gaMeasurementId !== 'G-XXXXXXXXXX') {
-        const gaScript = document.createElement('script');
+    <!-- PAGE TITLE -->
+    <title>SAKHIR TRAVEL AGENCY</title>
+
+    <!-- SEO META -->
+    <meta
+      name="description"
+      content="Sakhir Travel Agency delivers premium flight, hotel, tour, cargo and visa services with modern booking and analytics systems."
+    />
+    <meta
+      name="keywords"
+      content="travel agency, cargo logistics, visa services, hotel booking, flight booking, tours, travel management"
+    />
+    <meta name="author" content="SAKHIR TRAVEL AGENCY" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0F172A" />
+
+    <!-- OPEN GRAPH (Facebook / WhatsApp preview) -->
+    <meta property="og:title" content="SAKHIR TRAVEL AGENCY" />
+    <meta
+      property="og:description"
+      content="Premium travel, cargo, visa and booking services with professional support."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.sakhirtravel.com/" />
+    <meta
+      property="og:image"
+      content="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80"
+    />
+    <meta property="og:site_name" content="SAKHIR TRAVEL AGENCY" />
+
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SAKHIR TRAVEL AGENCY" />
+    <meta
+      name="twitter:description"
+      content="Premium travel, cargo, visa and booking services."
+    />
+    <meta
+      name="twitter:image"
+      content="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80"
+    />
+
+    <!-- CANONICAL -->
+    <link rel="canonical" href="https://www.sakhirtravel.com/" />
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- GOOGLE / GTM SCRIPT (optional safe) -->
+    <script>
+      const gaMeasurementId = "%VITE_GA_MEASUREMENT_ID%";
+      const gtmContainerId = "%VITE_GTM_CONTAINER_ID%";
+
+      if (gaMeasurementId && gaMeasurementId !== "G-XXXXXXXXXX") {
+        const gaScript = document.createElement("script");
         gaScript.async = true;
         gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`;
         document.head.appendChild(gaScript);
 
         window.dataLayer = window.dataLayer || [];
-        window.gtag = function gtag(){ window.dataLayer.push(arguments); };
-        window.gtag('js', new Date());
-        window.gtag('config', gaMeasurementId);
+        window.gtag = function gtag() {
+          window.dataLayer.push(arguments);
+        };
+        window.gtag("js", new Date());
+        window.gtag("config", gaMeasurementId);
       }
 
-      if (gtmContainerId && gtmContainerId !== 'GTM-XXXXXXX') {
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer', gtmContainerId);
+      if (gtmContainerId && gtmContainerId !== "GTM-XXXXXXX") {
+        (function (w, d, s, l, i) {
+          w[l] = w[l] || [];
+          w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+          var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != "dataLayer" ? "&l=" + l : "";
+          j.async = true;
+          j.src =
+            "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+          f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", gtmContainerId);
       }
     </script>
+
+    <!-- STRUCTURED DATA (SEO Google) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "TravelAgency",
-        "name": "Sakhir Travel & Cargo Agency",
-        "url": "https://sakhirtravelcargo.com/",
-        "description": "Premium travel, cargo, hotel, tour and visa services with analytics-driven operations.",
+        "name": "SAKHIR TRAVEL AGENCY",
+        "url": "https://www.sakhirtravel.com/",
+        "description": "Premium travel, cargo, hotel, tour and visa services.",
         "contactPoint": {
           "@type": "ContactPoint",
           "telephone": "+254722231116",
@@ -58,6 +107,7 @@
       }
     </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
