@@ -19,9 +19,10 @@ function Register() {
     setSubmitting(false)
 
     if (error) {
-      setMessage('Registration failed. Please try again.')
-      return
-    }
+  console.error(error)
+  setMessage(error.message)
+  return
+}
 
     await sendWelcomeEmail(email, fullName)
     await sendAccountVerificationEmail(email, fullName)
