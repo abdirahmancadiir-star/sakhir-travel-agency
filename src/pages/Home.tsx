@@ -1,65 +1,79 @@
-import { useState } from 'react';
+// Home.tsx - Nidaamsan oo casri ah
+import { useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
+import TravelAssistant from '../components/TravelAssistant'
+import { openWhatsApp, getWhatsAppSettings } from '../lib/whatsapp'
+import {
+  PlaneTakeoff, Truck, Bed, Globe2, ShieldCheck, Clock3, Sparkles,
+  MapPin, Star, Briefcase,
+} from 'lucide-react'
 
-export default function Home() {
-  const [activeTab, setActiveTab] = useState('Flight');
+// ... (Halkan ku hay data-daaga bookingServices, featuredServices, iwm. sidii hore)
+
+function Home() {
+  const [activeTab, setActiveTab] = useState('flight')
+  const [activeReview, setActiveReview] = useState(0)
+  const [email, setEmail] = useState('')
+  const [newsletterMessage, setNewsletterMessage] = useState('')
+  
+  const activeService = bookingServices.find((service) => service.id === activeTab) ?? bookingServices[0]
+  const whatsappConfig = getWhatsAppSettings()
+  
+  const handleNewsletterSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    if (!isValidEmail) {
+      setNewsletterMessage('Please enter a valid email address to receive travel updates.')
+      return
+    }
+    setNewsletterMessage(`Thank you, ${email}! Your travel briefing request has been queued.`)
+    setEmail('')
+  }
 
   return (
-    <main className="min-h-screen bg-white font-sans">
-      {/* Navbar Section */}
-      <nav className="absolute top-0 w-full z-50 flex items-center justify-between px-10 py-6 text-white bg-black/20">
-        <div className="font-bold text-xl tracking-wider">SAKHIR TRAVEL AGENCY</div>
-        <div className="hidden lg:flex gap-6 text-sm font-medium">
-          {['Home', 'Flights', 'Hotels', 'Tours', 'Visa Services', 'Cargo Services'].map((item) => (
-            <a key={item} href="#" className="hover:text-[#F59E0B]">{item}</a>
-          ))}
-        </div>
-        <button className="bg-[#F59E0B] px-6 py-2 rounded-full font-bold text-sm">Create Account</button>
-      </nav>
-
+    <main className="bg-[#0F172A] text-slate-200 min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[70vh] flex flex-col items-center justify-center text-center text-white">
-        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=80" className="absolute inset-0 w-full h-full object-cover brightness-[0.4]" alt="Hero" />
-        <div className="relative z-10 px-4">
-          <h1 className="text-5xl font-bold mb-4">Your World, Connected</h1>
-          <p className="text-lg opacity-90">Premier travel, cargo, and tourism services.</p>
+      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1800&q=80" 
+             className="absolute inset-0 w-full h-full object-cover" alt="Luxury Travel" />
+        <div className="absolute inset-0 bg-slate-950/70" />
+        <div className="relative z-10 max-w-5xl px-6 text-center">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">Travel, Cargo & Tourism — All in One</h1>
+          <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">Book flights, hotels, tours, visas, and cargo services through one trusted platform.</p>
+          <div className="flex justify-center gap-4">
+            <Link to="/contact" className="bg-[#F59E0B] text-[#0F172A] px-8 py-4 rounded-full font-bold hover:bg-amber-500 transition">Request Quote</Link>
+            <button onClick={() => openWhatsApp(whatsappConfig.templates.flight)} className="bg-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/20 transition backdrop-blur-sm">WhatsApp Booking</button>
+          </div>
         </div>
       </section>
 
-      {/* Booking Center - Margin-ka waxaa loo dhigay mid sax ah si uusan u dul dhicin */}
-      <div className="relative z-30 max-w-6xl mx-auto -mt-20 px-4 mb-20">
-        <div className="bg-white rounded-xl shadow-2xl p-8">
-           <div className="flex gap-8 border-b border-gray-100 mb-6 pb-2">
-            {['Flight', 'Cargo', 'Hotel', 'Tour'].map(tab => (
-              <button key={tab} onClick={() => setActiveTab(tab)} className={`pb-2 font-bold ${activeTab === tab ? 'text-[#F59E0B] border-b-2 border-[#F59E0B]' : 'text-gray-400'}`}>{tab}</button>
+      {/* Unified Booking Center - Layout-ka nadiif ah */}
+      <section className="relative -mt-20 z-20 max-w-6xl mx-auto px-4 pb-20">
+        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-10 text-slate-900">
+          <div className="flex flex-wrap gap-4 border-b border-slate-100 mb-8 pb-4">
+            {bookingServices.map((service) => (
+              <button key={service.id} onClick={() => setActiveTab(service.id)} 
+                      className={`px-6 py-2 rounded-full font-semibold transition ${activeTab === service.id ? 'bg-[#F59E0B] text-white' : 'bg-slate-100 hover:bg-slate-200'}`}>
+                {service.label}
+              </button>
             ))}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <input placeholder="Origin" className="p-3 border rounded-lg" />
-            <input placeholder="Destination" className="p-3 border rounded-lg" />
-            <button className="bg-[#0f172a] text-white font-bold py-3 rounded-lg hover:bg-black">Search</button>
-          </div>
-        </div>
-
-        {/* Popular Destinations - Waxaan ku daray margin-top si uu u kala fogaado */}
-        <div className="mt-20">
-          <h2 className="text-3xl font-bold text-center mb-10">Popular Destinations</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {['Dubai', 'Istanbul', 'Mecca', 'Nairobi'].map(city => (
-              <div key={city} className="h-64 rounded-2xl bg-gray-200 flex items-end p-6 font-bold text-white shadow-lg overflow-hidden relative">
-                <img src={`https://source.unsplash.com/featured/?${city}`} className="absolute inset-0 w-full h-full object-cover"/>
-                <span className="relative z-10">{city}</span>
+          <div className="grid md:grid-cols-3 gap-6">
+            {activeService.fields.map((field) => (
+              <div key={field.name}>
+                <label className="block text-sm font-bold mb-2">{field.label}</label>
+                <input type={field.type} placeholder={field.placeholder} className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#F59E0B] outline-none" />
               </div>
             ))}
+            <button className="bg-[#0F172A] text-white font-bold py-4 rounded-xl hover:bg-black transition col-span-full md:col-span-1">{activeService.button}</button>
           </div>
         </div>
+      </section>
 
-        {/* Luxury Packages Section - Waxaa loo qaabeeyey si nadiif ah */}
-        <div className="mt-20 bg-[#F59E0B] rounded-2xl p-10 text-center text-[#0f172a]">
-          <h2 className="text-3xl font-bold mb-4">Luxury Packages</h2>
-          <p className="mb-6 opacity-90">Custom itineraries for your next escape with VIP support.</p>
-          <button className="bg-[#0f172a] text-white px-8 py-3 rounded-full font-bold">View Packages</button>
-        </div>
-      </div>
+      {/* Halkan sii wad inta kale ee Content-kaaga oo dhan ... */}
+      <TravelAssistant />
+      
+      {/* Ugu dambayn: Hubi in padding-ga section kasta uu yahay mid isku mid ah (py-20) */}
     </main>
-  );
+  )
 }
