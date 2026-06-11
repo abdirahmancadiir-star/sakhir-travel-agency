@@ -1,6 +1,5 @@
 import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
-import TravelAssistant from '../components/TravelAssistant'
 import { openWhatsApp, getWhatsAppSettings } from '../lib/whatsapp'
 import {
   PlaneTakeoff,
@@ -11,9 +10,7 @@ import {
   Clock3,
   Sparkles,
   MapPin,
-  Phone,
   Mail,
-  MessageCircle,
   Star,
   Briefcase,
 } from 'lucide-react'
@@ -68,193 +65,45 @@ const bookingServices = [
 ]
 
 const featuredServices = [
-  {
-    icon: PlaneTakeoff,
-    title: 'Flight Services',
-    description: 'International and domestic flights with flexible booking and premium support.',
-    link: '/flights',
-  },
-  {
-    icon: Truck,
-    title: 'Cargo Services',
-    description: 'Fast and secure cargo shipping tailored for high-value freight.',
-    link: '/cargo',
-  },
-  {
-    icon: Bed,
-    title: 'Hotel Reservations',
-    description: 'Premium hotels worldwide with exclusive benefits and privileges.',
-    link: '/hotels',
-  },
-  {
-    icon: Globe2,
-    title: 'Tourism Packages',
-    description: 'Curated travel experiences for luxury-minded explorers.',
-    link: '/tours',
-  },
+  { icon: PlaneTakeoff, title: 'Flight Services', description: 'International and domestic flights with flexible booking and premium support.', link: '/flights' },
+  { icon: Truck, title: 'Cargo Services', description: 'Fast and secure cargo shipping tailored for high-value freight.', link: '/cargo' },
+  { icon: Bed, title: 'Hotel Reservations', description: 'Premium hotels worldwide with exclusive benefits and privileges.', link: '/hotels' },
+  { icon: Globe2, title: 'Tourism Packages', description: 'Curated travel experiences for luxury-minded explorers.', link: '/tours' },
 ]
 
 const banners = [
-  {
-    title: 'Dubai Luxury Experience',
-    category: 'City Escape',
-    description: 'Stay in iconic hotels, dine in fine restaurants and discover world-class attractions.',
-    cta: 'Book Dubai',
-    link: '/tours',
-    image:
-      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    title: 'Istanbul Cultural Journey',
-    category: 'Heritage Travel',
-    description: 'Explore historic landmarks, Bosphorus views and timeless luxury experiences.',
-    cta: 'Discover Istanbul',
-    link: '/tours',
-    image:
-      'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    title: 'Umrah & Hajj Packages',
-    category: 'Spiritual Travel',
-    description: 'Thoughtfully planned pilgrimages with VIP support and seamless logistics.',
-    cta: 'View Packages',
-    link: '/tours',
-    image:
-      'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    title: 'Global Cargo Solutions',
-    category: 'Logistics',
-    description: 'Reliable cargo transport, expert customs clearance and real-time shipment tracking.',
-    cta: 'Request Quote',
-    link: '/cargo',
-    image:
-      'https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?auto=format&fit=crop&w=1200&q=80',
-  },
+  { title: 'Dubai Luxury Experience', category: 'City Escape', description: 'Stay in iconic hotels, dine in fine restaurants and discover world-class attractions.', cta: 'Book Dubai', link: '/tours', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80' },
+  { title: 'Istanbul Cultural Journey', category: 'Heritage Travel', description: 'Explore historic landmarks, Bosphorus views and timeless luxury experiences.', cta: 'Discover Istanbul', link: '/tours', image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80' },
+  { title: 'Umrah & Hajj Packages', category: 'Spiritual Travel', description: 'Thoughtfully planned pilgrimages with VIP support and seamless logistics.', cta: 'View Packages', link: '/tours', image: 'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80' },
+  { title: 'Global Cargo Solutions', category: 'Logistics', description: 'Reliable cargo transport, expert customs clearance and real-time shipment tracking.', cta: 'Request Quote', link: '/cargo', image: 'https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?auto=format&fit=crop&w=1200&q=80' },
 ]
 
 const destinationCards = [
-  {
-    name: 'Dubai',
-    description: 'Skyline views, luxury hotels and premium leisure experiences.',
-    image:
-      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    name: 'Istanbul',
-    description: 'Historic architecture, Bosphorus cruises and refined boutique stays.',
-    image:
-      'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    name: 'Mecca',
-    description: 'Spiritual journeys with premium pilgrimage support and hospitality.',
-    image:
-      'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    name: 'Medina',
-    description: 'Sacred stays and seamless logistics for spiritual travelers.',
-    image:
-      'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    name: 'Nairobi',
-    description: 'Safari gateways, luxury lodges and East Africa adventures.',
-    image:
-      'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    name: 'Kuala Lumpur',
-    description: 'Modern city escapes with iconic towers and premium shopping.',
-    image:
-      'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80',
-  },
+  { name: 'Dubai', description: 'Skyline views, luxury hotels and premium leisure experiences.', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80' },
+  { name: 'Istanbul', description: 'Historic architecture, Bosphorus cruises and refined boutique stays.', image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80' },
+  { name: 'Mecca', description: 'Spiritual journeys with premium pilgrimage support and hospitality.', image: 'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80' },
+  { name: 'Medina', description: 'Sacred stays and seamless logistics for spiritual travelers.', image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80' },
+  { name: 'Nairobi', description: 'Safari gateways, luxury lodges and East Africa adventures.', image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80' },
+  { name: 'Kuala Lumpur', description: 'Modern city escapes with iconic towers and premium shopping.', image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80' },
 ]
 
 const packageCards = [
-  {
-    name: 'Dubai Premium Tour',
-    duration: '7 days',
-    price: 'From $3,500',
-    image:
-      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    name: 'Mecca Pilgrimage Package',
-    duration: '10 days',
-    price: 'From $4,900',
-    image:
-      'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    name: 'Istanbul VIP Experience',
-    duration: '5 days',
-    price: 'From $2,750',
-    image:
-      'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    name: 'Turkey Black Sea Tour',
-    duration: '6 days',
-    price: 'From $2,100',
-    image:
-      'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    name: 'East Africa Safari',
-    duration: '8 days',
-    price: 'From $4,200',
-    image:
-      'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    name: 'Umrah & Hajj Premium Package',
-    duration: '14 days',
-    price: 'From $5,600',
-    image:
-      'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    name: 'Cappadocia Balloon Adventure',
-    duration: '4 days',
-    price: 'From $1,980',
-    image:
-      'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=1200&q=80',
-  },
+  { name: 'Dubai Premium Tour', duration: '7 days', price: 'From $3,500', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80' },
+  { name: 'Mecca Pilgrimage Package', duration: '10 days', price: 'From $4,900', image: 'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80' },
+  { name: 'Istanbul VIP Experience', duration: '5 days', price: 'From $2,750', image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80' },
+  { name: 'Turkey Black Sea Tour', duration: '6 days', price: 'From $2,100', image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80' },
+  { name: 'East Africa Safari', duration: '8 days', price: 'From $4,200', image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80' },
+  { name: 'Umrah & Hajj Premium Package', duration: '14 days', price: 'From $5,600', image: 'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80' },
+  { name: 'Cappadocia Balloon Adventure', duration: '4 days', price: 'From $1,980', image: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=1200&q=80' },
 ]
 
 const whyChooseUs = [
-  {
-    icon: ShieldCheck,
-    title: 'Secure Payments',
-    description: 'Bank-grade payment processing and secure booking confirmations.',
-  },
-  {
-    icon: Clock3,
-    title: '24/7 Support',
-    description: 'Dedicated concierge service available around the clock.',
-  },
-  {
-    icon: Briefcase,
-    title: 'Trusted Experts',
-    description: 'Local specialists with premium travel and logistics knowledge.',
-  },
-  {
-    icon: Sparkles,
-    title: 'Premium Experiences',
-    description: 'Exclusive upgrades and refined itineraries for every trip.',
-  },
-  {
-    icon: MapPin,
-    title: 'Best Hotel Deals',
-    description: 'Negotiated rates at top hotels and resorts worldwide.',
-  },
-  {
-    icon: Globe2,
-    title: 'Visa Assistance',
-    description: 'Guidance for visa applications and document processing.',
-  },
+  { icon: ShieldCheck, title: 'Secure Payments', description: 'Bank-grade payment processing and secure booking confirmations.' },
+  { icon: Clock3, title: '24/7 Support', description: 'Dedicated concierge service available around the clock.' },
+  { icon: Briefcase, title: 'Trusted Experts', description: 'Local specialists with premium travel and logistics knowledge.' },
+  { icon: Sparkles, title: 'Premium Experiences', description: 'Exclusive upgrades and refined itineraries for every trip.' },
+  { icon: MapPin, title: 'Best Hotel Deals', description: 'Negotiated rates at top hotels and resorts worldwide.' },
+  { icon: Globe2, title: 'Visa Assistance', description: 'Guidance for visa applications and document processing.' },
 ]
 
 const stats = [
@@ -267,36 +116,15 @@ const stats = [
 const partnerAirlines = ['Emirates', 'Qatar Airways', 'Turkish Airlines', 'Kenya Airways', 'Ethiopian Airlines']
 
 const faqItems = [
-  {
-    question: 'Can you help with visa applications?',
-    answer: 'Yes. We guide customers through document checklists, submission timing, and follow-up support for the destination country.',
-  },
-  {
-    question: 'Do you handle cargo quotations?',
-    answer: 'We provide air and road freight estimates, pickup coordination, and shipment tracking guidance for priority consignments.',
-  },
-  {
-    question: 'Is the booking process secure?',
-    answer: 'All booking requests and payments are handled with secure channels, verified contact support, and clear confirmations.',
-  },
+  { question: 'Can you help with visa applications?', answer: 'Yes. We guide customers through document checklists, submission timing, and follow-up support for the destination country.' },
+  { question: 'Do you handle cargo quotations?', answer: 'We provide air and road freight estimates, pickup coordination, and shipment tracking guidance for priority consignments.' },
+  { question: 'Is the booking process secure?', answer: 'All booking requests and payments are handled with secure channels, verified contact support, and clear confirmations.' },
 ]
 
 const testimonials = [
-  {
-    name: 'Amina Yusuf',
-    role: 'Executive Traveler',
-    quote: 'Every moment felt effortless. They handled the details so we could enjoy the journey.',
-  },
-  {
-    name: 'Musa Al-Karim',
-    role: 'Family Planner',
-    quote: 'The itinerary blended luxury, adventure and comfort perfectly for our family.',
-  },
-  {
-    name: 'Leila Njoroge',
-    role: 'Cargo Director',
-    quote: 'Cargo delivery was seamless, precise and on schedule. Their logistics team is world-class.',
-  },
+  { name: 'Amina Yusuf', role: 'Executive Traveler', quote: 'Every moment felt effortless. They handled the details so we could enjoy the journey.' },
+  { name: 'Musa Al-Karim', role: 'Family Planner', quote: 'The itinerary blended luxury, adventure and comfort perfectly for our family.' },
+  { name: 'Leila Njoroge', role: 'Cargo Director', quote: 'Cargo delivery was seamless, precise and on schedule. Their logistics team is world-class.' },
 ]
 
 function Home() {
@@ -310,12 +138,10 @@ function Home() {
   const handleNewsletterSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-
     if (!isValidEmail) {
       setNewsletterMessage('Please enter a valid email address to receive travel updates.')
       return
     }
-
     setNewsletterMessage(`Thank you, ${email}! Your travel briefing request has been queued for our team.`)
     setEmail('')
   }
@@ -332,20 +158,12 @@ function Home() {
     <main className="bg-[var(--brand-deep)] text-[var(--brand-sand)]">
       <section className="relative min-h-screen overflow-hidden">
         <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1800&q=80"
-            alt="Luxury travel and cargo services"
-            className="h-full w-full object-cover"
-            loading="lazy"
-            decoding="async"
-          />
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1800&q=80" alt="Luxury travel and cargo services" className="h-full w-full object-cover" loading="lazy" decoding="async" />
           <div className="absolute inset-0 bg-slate-950/85" />
         </div>
         <div className="relative mx-auto flex min-h-screen max-w-[1400px] flex-col justify-center px-6 py-20 lg:px-12">
           <div className="max-w-3xl space-y-8">
-            <span className="brand-chip">
-              Luxury Travel & Cargo
-            </span>
+            <span className="brand-chip">Luxury Travel & Cargo</span>
             <h1 className="text-4xl font-semibold leading-tight tracking-tight text-[var(--brand-sand)] sm:text-6xl">
               Travel, Cargo, Hotels & Tourism — All in One Place
             </h1>
@@ -353,25 +171,12 @@ function Home() {
               Book flights, hotels, tours, visas, and cargo services through one trusted platform.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Link
-                to="/contact"
-                className="brand-button w-full sm:w-auto"
-              >
-                Request Quote
-              </Link>
-              <button
-                type="button"
-                onClick={() => openWhatsApp(whatsappConfig.templates.flight)}
-                className="brand-button-secondary w-full sm:w-auto"
-              >
-                WhatsApp Booking
-              </button>
+              <Link to="/contact" className="brand-button w-full sm:w-auto">Request Quote</Link>
+              <button type="button" onClick={() => openWhatsApp(whatsappConfig.templates.flight)} className="brand-button-secondary w-full sm:w-auto">WhatsApp Booking</button>
             </div>
             <div className="grid gap-4 sm:grid-cols-3">
               {['International flights', 'Secure cargo', 'Premium stays'].map((item) => (
-                <div key={item} className="brand-card p-5 text-sm text-[var(--brand-soft)] backdrop-blur-md">
-                  {item}
-                </div>
+                <div key={item} className="brand-card p-5 text-sm text-[var(--brand-soft)] backdrop-blur-md">{item}</div>
               ))}
             </div>
           </div>
@@ -396,16 +201,7 @@ function Home() {
               </div>
               <div className="flex flex-wrap gap-2">
                 {bookingServices.map((service) => (
-                  <button
-                    key={service.id}
-                    type="button"
-                    onClick={() => setActiveTab(service.id)}
-                    className={`rounded-full px-5 py-3 text-sm font-semibold transition ${
-                      activeTab === service.id
-                        ? 'bg-[var(--brand-gold)] text-[var(--brand-deep)]'
-                        : 'border border-white/10 bg-white/5 text-[var(--brand-soft)] hover:bg-white/10'
-                    }`}
-                  >
+                  <button key={service.id} type="button" onClick={() => setActiveTab(service.id)} className={`rounded-full px-5 py-3 text-sm font-semibold transition ${activeTab === service.id ? 'bg-[var(--brand-gold)] text-[var(--brand-deep)]' : 'border border-white/10 bg-white/5 text-[var(--brand-soft)] hover:bg-white/10'}`}>
                     {service.label}
                   </button>
                 ))}
@@ -415,22 +211,14 @@ function Home() {
               {activeService.fields.map((field) => (
                 <label key={field.name} className="block">
                   <span className="text-sm font-medium text-[var(--brand-soft)]">{field.label}</span>
-                  <input
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    className="mt-3 w-full rounded-[1.75rem] border border-white/10 bg-[var(--brand-panel)]/90 px-5 py-4 text-[var(--brand-sand)] outline-none transition focus:border-[var(--brand-gold)] focus:ring-2 focus:ring-[var(--brand-gold)]/20"
-                  />
+                  <input type={field.type} placeholder={field.placeholder} className="mt-3 w-full rounded-[1.75rem] border border-white/10 bg-[var(--brand-panel)]/90 px-5 py-4 text-[var(--brand-sand)] outline-none transition focus:border-[var(--brand-gold)] focus:ring-2 focus:ring-[var(--brand-gold)]/20" />
                 </label>
               ))}
-              <button className="brand-button col-span-full">
-                {activeService.button}
-              </button>
+              <button className="brand-button col-span-full">{activeService.button}</button>
             </div>
           </div>
         </div>
       </section>
-
-      <TravelAssistant />
 
       <section className="mx-auto max-w-[1400px] px-6 pb-16 lg:px-8 bg-[#0F172A]">
         <article className="rounded-[2rem] border border-white/10 bg-slate-950/95 p-8 shadow-[0_35px_90px_-55px_rgba(0,0,0,0.35)]">
@@ -474,14 +262,7 @@ function Home() {
             <form onSubmit={handleNewsletterSubmit} className="mt-6 space-y-4">
               <label className="block text-sm text-slate-200">
                 Email address
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="you@example.com"
-                  className="mt-3 w-full rounded-[1.25rem] border border-white/10 bg-slate-900/90 px-4 py-3 text-slate-100 outline-none transition focus:border-[#F59E0B] focus:ring-2 focus:ring-[#F59E0B]/20"
-                  aria-label="Email address for travel updates"
-                />
+                <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" className="mt-3 w-full rounded-[1.25rem] border border-white/10 bg-slate-900/90 px-4 py-3 text-slate-100 outline-none transition focus:border-[#F59E0B] focus:ring-2 focus:ring-[#F59E0B]/20" aria-label="Email address for travel updates" />
               </label>
               <button type="submit" className="inline-flex w-full items-center justify-center rounded-full bg-[#F59E0B] px-6 py-3 text-sm font-semibold text-[#0F172A] transition hover:bg-[#d48706]">Subscribe</button>
               {newsletterMessage ? <p className="text-sm text-emerald-100">{newsletterMessage}</p> : null}
@@ -497,22 +278,13 @@ function Home() {
               <p className="text-sm uppercase tracking-[0.32em] text-emerald-100">WhatsApp Booking</p>
               <h2 className="mt-3 text-2xl font-semibold text-white">Start flights, hotels, cargo and visa requests instantly on WhatsApp.</h2>
             </div>
-            <button
-              type="button"
-              onClick={() => openWhatsApp('Hello, I would like to speak with Sakhir Travel & Cargo.')}
-              className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-[#1eb95d]"
-            >
+            <button type="button" onClick={() => openWhatsApp('Hello, I would like to speak with Sakhir Travel & Cargo.')} className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-[#1eb95d]">
               Open WhatsApp
             </button>
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
             {quickActions.map((action) => (
-              <button
-                key={action.key}
-                type="button"
-                onClick={() => openWhatsApp(action.message)}
-                className="rounded-[1.5rem] border border-white/10 bg-slate-950/90 p-4 text-left text-sm text-slate-100 transition hover:border-emerald-400/40 hover:bg-slate-900"
-              >
+              <button key={action.key} type="button" onClick={() => openWhatsApp(action.message)} className="rounded-[1.5rem] border border-white/10 bg-slate-950/90 p-4 text-left text-sm text-slate-100 transition hover:border-emerald-400/40 hover:bg-slate-900">
                 <p className="text-xs uppercase tracking-[0.28em] text-emerald-100">{action.key}</p>
                 <p className="mt-3 font-semibold text-white">{action.label}</p>
               </button>
@@ -525,9 +297,7 @@ function Home() {
               <service.icon className="h-12 w-12 rounded-3xl border border-[#F59E0B]/20 bg-[#F59E0B]/10 p-3 text-[#0F172A]" />
               <h3 className="mt-6 text-2xl font-semibold text-white">{service.title}</h3>
               <p className="mt-4 text-sm leading-7 text-slate-300">{service.description}</p>
-              <Link to={service.link} className="mt-6 inline-flex items-center text-sm font-semibold text-[#F59E0B]">
-                Learn More
-              </Link>
+              <Link to={service.link} className="mt-6 inline-flex items-center text-sm font-semibold text-[#F59E0B]">Learn More</Link>
             </article>
           ))}
         </div>
@@ -549,12 +319,7 @@ function Home() {
                 <p className="text-sm uppercase tracking-[0.28em] text-amber-300">{banner.category}</p>
                 <h3 className="mt-3 text-2xl font-semibold">{banner.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-slate-200">{banner.description}</p>
-                <Link
-                  to={banner.link}
-                  className="mt-6 inline-flex items-center rounded-full bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#0F172A] transition hover:bg-[#d48706]"
-                >
-                  {banner.cta}
-                </Link>
+                <Link to={banner.link} className="mt-6 inline-flex items-center rounded-full bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#0F172A] transition hover:bg-[#d48706]">{banner.cta}</Link>
               </div>
             </article>
           ))}
@@ -578,9 +343,7 @@ function Home() {
               <div className="p-8">
                 <h3 className="text-2xl font-semibold text-white">{destination.name}</h3>
                 <p className="mt-4 text-sm leading-7 text-slate-300">{destination.description}</p>
-                <Link to="/tours" className="mt-6 inline-flex items-center text-sm font-semibold text-[#F59E0B]">
-                  Explore
-                </Link>
+                <Link to="/tours" className="mt-6 inline-flex items-center text-sm font-semibold text-[#F59E0B]">Explore</Link>
               </div>
             </article>
           ))}
@@ -610,9 +373,7 @@ function Home() {
                 <p className="mt-4 text-sm text-slate-300">Highlights: Luxury planning, premium support, and tailored travel guidance.</p>
                 <p className="mt-3 text-sm text-slate-300">Services Included: Hotel access, transfers, visa support, and concierge assistance.</p>
                 <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#F59E0B]">Contact us for pricing</p>
-                <Link to="/contact" className="mt-6 inline-flex items-center rounded-full bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#0F172A] transition hover:bg-[#d48706]">
-                  Request Quote
-                </Link>
+                <Link to="/contact" className="mt-6 inline-flex items-center rounded-full bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#0F172A] transition hover:bg-[#d48706]">Request Quote</Link>
               </div>
             </article>
           ))}
@@ -639,16 +400,7 @@ function Home() {
           </div>
           <div className="flex flex-wrap gap-3">
             {testimonials.map((_, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => setActiveReview(index)}
-                className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                  activeReview === index
-                    ? 'border-[#F59E0B] bg-[#F59E0B]/15 text-[#F59E0B]'
-                    : 'border-white/10 bg-white/5 text-slate-200 hover:border-white/20'
-                }`}
-              >
+              <button key={index} type="button" onClick={() => setActiveReview(index)} className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${activeReview === index ? 'border-[#F59E0B] bg-[#F59E0B]/15 text-[#F59E0B]' : 'border-white/10 bg-white/5 text-slate-200 hover:border-white/20'}`}>
                 {index + 1}
               </button>
             ))}
@@ -656,25 +408,16 @@ function Home() {
         </div>
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {testimonials.map((item, index) => (
-            <article
-              key={item.name}
-              className={`rounded-[2rem] p-8 shadow-[0_30px_80px_-55px_rgba(0,0,0,0.35)] ${
-                index === activeReview ? 'border border-[#F59E0B]/30 bg-[#111827]/80 text-white' : 'border border-white/10 bg-slate-950/90 text-white'
-              }`}
-            >
+            <article key={item.name} className={`rounded-[2rem] p-8 shadow-[0_30px_80px_-55px_rgba(0,0,0,0.35)] ${index === activeReview ? 'border border-[#F59E0B]/30 bg-[#111827]/80 text-white' : 'border border-white/10 bg-slate-950/90 text-white'}`}>
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-[#F59E0B]/10 text-[#F59E0B]">
-                  {item.name.charAt(0)}
-                </div>
+                <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-[#F59E0B]/10 text-[#F59E0B]">{item.name.charAt(0)}</div>
                 <div>
                   <p className="font-semibold text-white">{item.name}</p>
                   <p className="text-sm text-slate-400">{item.role}</p>
                 </div>
               </div>
               <div className="mt-6 flex gap-1 text-[#F59E0B]">
-                {Array.from({ length: 5 }).map((_, starIndex) => (
-                  <Star key={starIndex} className="h-4 w-4" />
-                ))}
+                {Array.from({ length: 5 }).map((_, starIndex) => <Star key={starIndex} className="h-4 w-4" />)}
               </div>
               <p className="mt-6 text-sm leading-7 text-slate-300">“{item.quote}”</p>
             </article>
@@ -689,46 +432,32 @@ function Home() {
             <h2 className="mt-4 text-3xl font-semibold">Let us design your next premium journey</h2>
             <p className="mt-4 text-sm leading-7 text-slate-300">Speak with our experts about luxury itineraries, cargo logistics, visa support and exceptional hotel bookings.</p>
             <div className="mt-8 grid gap-6">
-              <div className="rounded-[2rem] bg-[#0F172A] p-8 shadow-[0_35px_100px_-55px_rgba(0,0,0,0.36)] ring-1 ring-white/10">
-                <p className="text-sm uppercase tracking-[0.32em] text-[#F59E0B]">Contact</p>
-                <h2 className="mt-4 text-3xl font-semibold text-white">Let us design your next premium journey</h2>
-                <p className="mt-4 max-w-xl text-sm leading-7 text-slate-300">Speak with our experts about luxury itineraries, cargo logistics, visa support, and exceptional hotel bookings.</p>
-                <div className="mt-8 grid gap-4">
-                  <div className="rounded-[1.75rem] bg-slate-950/95 p-6 ring-1 ring-white/10 shadow-sm">
-                    <div className="flex items-start gap-4">
-                      <div className="mt-1 flex h-14 w-14 items-center justify-center rounded-3xl bg-[#F59E0B]/10 text-[#F59E0B] shadow-sm">
-                        <MapPin size={24} />
-                      </div>
-                      <div>
-                        <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Office</p>
-                        <p className="mt-3 text-xl font-semibold text-white">Nairobi, Kenya</p>
-                      </div>
-                    </div>
+              <div className="rounded-[1.75rem] bg-slate-950/95 p-6 ring-1 ring-white/10 shadow-sm">
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex h-14 w-14 items-center justify-center rounded-3xl bg-[#F59E0B]/10 text-[#F59E0B] shadow-sm">
+                    <MapPin size={24} />
                   </div>
-                  <div className="rounded-[1.75rem] bg-slate-950/95 p-6 ring-1 ring-white/10 shadow-sm">
-                    <div className="flex items-start gap-4">
-                      <div className="mt-1 flex h-14 w-14 items-center justify-center rounded-3xl bg-[#F59E0B]/10 text-[#F59E0B] shadow-sm">
-                        <Mail size={24} />
-                      </div>
-                      <div>
-                        <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Email</p>
-                        <a href="mailto:sakhirtravel10@gmail.com" className="mt-3 block text-xl font-semibold text-white transition hover:text-[#F59E0B]">
-                          sakhirtravel10@gmail.com
-                        </a>
-                      </div>
-                    </div>
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Office</p>
+                    <p className="mt-3 text-xl font-semibold text-white">Nairobi, Kenya</p>
+                  </div>
+                </div>
+              </div>
+              <div className="rounded-[1.75rem] bg-slate-950/95 p-6 ring-1 ring-white/10 shadow-sm">
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex h-14 w-14 items-center justify-center rounded-3xl bg-[#F59E0B]/10 text-[#F59E0B] shadow-sm">
+                    <Mail size={24} />
+                  </div>
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Email</p>
+                    <a href="mailto:sakhirtravel10@gmail.com" className="mt-3 block text-xl font-semibold text-white transition hover:text-[#F59E0B]">sakhirtravel10@gmail.com</a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/90 shadow-[0_30px_80px_-55px_rgba(0,0,0,0.35)]">
-            <iframe
-              title="Office location"
-              src="https://maps.google.com/maps?q=Dubai%20skyline&t=&z=13&ie=UTF8&iwloc=&output=embed"
-              className="h-full min-h-[420px] w-full border-0"
-              loading="lazy"
-            />
+            <iframe title="Office location" src="https://maps.google.com/maps?q=Dubai%20skyline&t=&z=13&ie=UTF8&iwloc=&output=embed" className="h-full min-h-[420px] w-full border-0" loading="lazy" />
           </div>
         </div>
       </section>
@@ -743,32 +472,20 @@ function Home() {
             <p className="text-sm uppercase tracking-[0.32em] text-slate-400">Quick Links</p>
             <ul className="mt-5 space-y-3 text-sm text-slate-300">
               {['Home', 'Flights', 'Cargo', 'Hotels', 'Tours', 'Visa', 'Contact'].map((item) => (
-                <li key={item}>
-                  <Link to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} className="transition hover:text-white">
-                    {item}
-                  </Link>
-                </li>
+                <li key={item}><Link to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} className="transition hover:text-white">{item}</Link></li>
               ))}
             </ul>
           </div>
           <div>
             <p className="text-sm uppercase tracking-[0.32em] text-slate-400">Services</p>
             <ul className="mt-5 space-y-3 text-sm text-slate-300">
-              {['Flight Booking', 'Cargo Shipping', 'Hotel Reservation', 'Tour Packages'].map((item) => (
-                <li key={item} className="transition hover:text-white">
-                  {item}
-                </li>
-              ))}
+              {['Flight Booking', 'Cargo Shipping', 'Hotel Reservation', 'Tour Packages'].map((item) => (<li key={item} className="transition hover:text-white">{item}</li>))}
             </ul>
           </div>
           <div>
             <p className="text-sm uppercase tracking-[0.32em] text-slate-400">Social Media</p>
             <ul className="mt-5 space-y-3 text-sm text-slate-300">
-              {['Facebook', 'Instagram', 'TikTok', 'LinkedIn'].map((item) => (
-                <li key={item} className="transition hover:text-white">
-                  {item}
-                </li>
-              ))}
+              {['Facebook', 'Instagram', 'TikTok', 'LinkedIn'].map((item) => (<li key={item} className="transition hover:text-white">{item}</li>))}
             </ul>
           </div>
         </div>
