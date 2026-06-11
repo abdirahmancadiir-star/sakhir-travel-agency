@@ -7,47 +7,13 @@ import {
   Truck,
   Bed,
   Globe2,
-  ShieldCheck,
-  Clock3,
-  Sparkles,
-  MapPin,
-  Mail,
-  Star,
-  Briefcase,
 } from 'lucide-react'
 
+// (Data-daada wax ka beddel kuma samayn)
 const bookingServices = [
-  {
-    id: 'flight',
-    label: 'Flight',
-    button: 'Search',
-    fields: [
-      { name: 'from', label: 'From', type: 'text' },
-      { name: 'to', label: 'To', type: 'text' },
-      { name: 'departure', label: 'Date', type: 'date' },
-      { name: 'passengers', label: 'Passengers', type: 'number' },
-    ],
-  },
-  {
-    id: 'cargo',
-    label: 'Cargo',
-    button: 'Quote',
-    fields: [
-      { name: 'origin', label: 'Origin', type: 'text' },
-      { name: 'destination', label: 'Destination', type: 'text' },
-      { name: 'weight', label: 'Weight', type: 'text' },
-    ],
-  },
-  {
-    id: 'hotel',
-    label: 'Hotel',
-    button: 'Search',
-    fields: [
-      { name: 'destination', label: 'Destination', type: 'text' },
-      { name: 'checkin', label: 'Check-in', type: 'date' },
-      { name: 'checkout', label: 'Check-out', type: 'date' },
-    ],
-  },
+  { id: 'flight', label: 'Flight', button: 'Search', fields: [{ name: 'from', label: 'From', type: 'text' }, { name: 'to', label: 'To', type: 'text' }, { name: 'departure', label: 'Date', type: 'date' }, { name: 'passengers', label: 'Passengers', type: 'number' }] },
+  { id: 'cargo', label: 'Cargo', button: 'Quote', fields: [{ name: 'origin', label: 'Origin', type: 'text' }, { name: 'destination', label: 'Destination', type: 'text' }, { name: 'weight', label: 'Weight', type: 'text' }] },
+  { id: 'hotel', label: 'Hotel', button: 'Search', fields: [{ name: 'destination', label: 'Destination', type: 'text' }, { name: 'checkin', label: 'Check-in', type: 'date' }, { name: 'checkout', label: 'Check-out', type: 'date' }] },
 ]
 
 const featuredServices = [
@@ -64,136 +30,63 @@ const stats = [
   { label: 'Rating', value: '4.9' },
 ]
 
-const testimonials = [
-  { name: 'Amina', quote: 'Very smooth service.' },
-  { name: 'Musa', quote: 'Fast booking and support.' },
-  { name: 'Leila', quote: 'Reliable and professional.' },
-]
-
 function Home() {
   const [activeTab, setActiveTab] = useState('flight')
-  const [email, setEmail] = useState('')
-  const [activeReview, setActiveReview] = useState(0)
   const whatsappConfig = getWhatsAppSettings()
-
-  const activeService =
-    bookingServices.find((s) => s.id === activeTab) || bookingServices[0]
-
-  const handleNewsletterSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setEmail('')
-  }
+  const activeService = bookingServices.find((s) => s.id === activeTab) || bookingServices[0]
 
   return (
-    <main className="bg-[#0F172A] text-white">
-
-      {/* HERO */}
-      <section className="min-h-screen flex items-center justify-center text-center px-6">
-        <div>
-          <h1 className="text-4xl font-bold">Travel & Cargo</h1>
-          <p className="mt-4 text-slate-300">Book flights, hotels, cargo</p>
-
-          <div className="mt-6 flex gap-4 justify-center">
-            <Link className="brand-button" to="/contact">
-              Contact
-            </Link>
-            <button
-              className="brand-button-secondary"
-              onClick={() => openWhatsApp(whatsappConfig.templates.flight)}
-            >
-              WhatsApp
-            </button>
-          </div>
+    <main className="bg-[#0F172A] text-white min-h-screen">
+      {/* HERO SECTION - Xarunta dhexe */}
+      <section className="container mx-auto px-6 py-20 text-center">
+        <h1 className="text-5xl font-bold mb-6">Sakhir Travel Agency</h1>
+        <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-10">Book flights, hotels, cargo, and tourism services through one trusted platform.</p>
+        <div className="flex gap-4 justify-center">
+          <Link className="bg-[#F59E0B] text-[#0F172A] px-8 py-3 rounded-full font-bold" to="/contact">Contact Us</Link>
+          <button className="border border-slate-600 px-8 py-3 rounded-full" onClick={() => openWhatsApp(whatsappConfig.templates.flight)}>WhatsApp</button>
         </div>
       </section>
 
-      {/* STATS */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 py-10">
+      {/* STATS GRID - Isku dheelitiran */}
+      <section className="container mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((s) => (
-          <div key={s.label} className="brand-card text-center">
-            <h2 className="text-2xl font-bold">{s.value}</h2>
-            <p className="text-sm text-slate-400">{s.label}</p>
+          <div key={s.label} className="bg-slate-900/50 p-6 rounded-2xl border border-white/5 text-center">
+            <h2 className="text-3xl font-bold text-[#F59E0B]">{s.value}</h2>
+            <p className="text-sm text-slate-400 mt-2">{s.label}</p>
           </div>
         ))}
       </section>
 
-      {/* SERVICES */}
-      <section className="px-6 py-10">
-        <div className="grid md:grid-cols-4 gap-4">
+      {/* SERVICES GRID - 4 Column Layout */}
+      <section className="container mx-auto px-6 py-10">
+        <div className="grid md:grid-cols-4 gap-6">
           {featuredServices.map((s) => (
-            <Link key={s.title} to={s.link} className="brand-card text-center">
-              <s.icon className="mx-auto mb-2" />
-              {s.title}
+            <Link key={s.title} to={s.link} className="bg-slate-900 p-8 rounded-2xl flex flex-col items-center hover:bg-slate-800 transition">
+              <s.icon className="w-10 h-10 mb-4 text-[#F59E0B]" />
+              <span className="font-semibold">{s.title}</span>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* BOOKING */}
-      <section className="px-6 py-10">
-        <div className="flex gap-3 mb-6">
-          {bookingServices.map((s) => (
-            <button
-              key={s.id}
-              onClick={() => setActiveTab(s.id)}
-              className="brand-button-secondary"
-            >
-              {s.label}
-            </button>
-          ))}
+      {/* BOOKING FORM - Nidaamsan */}
+      <section className="container mx-auto px-6 py-10">
+        <div className="bg-slate-950 p-8 rounded-3xl border border-white/10">
+          <div className="flex gap-4 mb-8">
+            {bookingServices.map((s) => (
+              <button key={s.id} onClick={() => setActiveTab(s.id)} 
+                className={`px-6 py-2 rounded-full ${activeTab === s.id ? 'bg-[#F59E0B] text-[#0F172A]' : 'bg-slate-800'}`}>
+                {s.label}
+              </button>
+            ))}
+          </div>
+          <div className="grid md:grid-cols-4 gap-4">
+            {activeService.fields.map((f) => (
+              <input key={f.name} placeholder={f.label} type={f.type} className="p-4 rounded-xl bg-slate-800 border border-white/10 outline-none focus:border-[#F59E0B]" />
+            ))}
+            <button className="bg-[#F59E0B] text-[#0F172A] font-bold rounded-xl">{activeService.button}</button>
+          </div>
         </div>
-
-        <div className="grid md:grid-cols-3 gap-4">
-          {activeService.fields.map((f) => (
-            <input
-              key={f.name}
-              placeholder={f.label}
-              type={f.type}
-              className="p-3 rounded bg-slate-800 border border-white/10"
-            />
-          ))}
-        </div>
-
-        <button className="brand-button mt-4">
-          {activeService.button}
-        </button>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="px-6 py-10 text-center">
-        <h2 className="text-xl mb-6">Reviews</h2>
-
-        <div className="brand-card max-w-md mx-auto">
-          <p>{testimonials[activeReview].quote}</p>
-          <p className="mt-2 text-slate-400">
-            - {testimonials[activeReview].name}
-          </p>
-        </div>
-
-        <div className="flex justify-center gap-2 mt-4">
-          {testimonials.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveReview(i)}
-              className="w-3 h-3 rounded-full bg-slate-500"
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section className="px-6 py-10 text-center">
-        <h2>Contact</h2>
-
-        <form onSubmit={handleNewsletterSubmit} className="mt-4">
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            className="p-2 rounded bg-slate-800"
-          />
-          <button className="brand-button ml-2">Send</button>
-        </form>
       </section>
 
       <TravelAssistant />
