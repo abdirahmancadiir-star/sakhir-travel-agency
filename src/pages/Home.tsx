@@ -257,8 +257,12 @@ const whyChooseUs = [
   },
 ]
 
-
-
+const stats = [
+  { label: 'Premium destinations', value: '120+' },
+  { label: 'Cargo routes covered', value: '45+' },
+  { label: '24/7 concierge replies', value: '98%' },
+  { label: 'Client satisfaction', value: '4.9/5' },
+]
 
 const partnerAirlines = ['Emirates', 'Qatar Airways', 'Turkish Airlines', 'Kenya Airways', 'Ethiopian Airlines']
 
