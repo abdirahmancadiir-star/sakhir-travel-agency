@@ -6,13 +6,9 @@ import {
   Truck,
   Bed,
   Globe2,
-  ShieldCheck,
-  Clock3,
-  Sparkles,
   MapPin,
   Mail,
   Star,
-  Briefcase,
 } from 'lucide-react'
 
 const bookingServices = [
@@ -76,34 +72,6 @@ const banners = [
   { title: 'Istanbul Cultural Journey', category: 'Heritage Travel', description: 'Explore historic landmarks, Bosphorus views and timeless luxury experiences.', cta: 'Discover Istanbul', link: '/tours', image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80' },
   { title: 'Umrah & Hajj Packages', category: 'Spiritual Travel', description: 'Thoughtfully planned pilgrimages with VIP support and seamless logistics.', cta: 'View Packages', link: '/tours', image: 'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80' },
   { title: 'Global Cargo Solutions', category: 'Logistics', description: 'Reliable cargo transport, expert customs clearance and real-time shipment tracking.', cta: 'Request Quote', link: '/cargo', image: 'https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?auto=format&fit=crop&w=1200&q=80' },
-]
-
-const destinationCards = [
-  { name: 'Dubai', description: 'Skyline views, luxury hotels and premium leisure experiences.', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80' },
-  { name: 'Istanbul', description: 'Historic architecture, Bosphorus cruises and refined boutique stays.', image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80' },
-  { name: 'Mecca', description: 'Spiritual journeys with premium pilgrimage support and hospitality.', image: 'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80' },
-  { name: 'Medina', description: 'Sacred stays and seamless logistics for spiritual travelers.', image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80' },
-  { name: 'Nairobi', description: 'Safari gateways, luxury lodges and East Africa adventures.', image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80' },
-  { name: 'Kuala Lumpur', description: 'Modern city escapes with iconic towers and premium shopping.', image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80' },
-]
-
-const packageCards = [
-  { name: 'Dubai Premium Tour', duration: '7 days', price: 'From $3,500', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80' },
-  { name: 'Mecca Pilgrimage Package', duration: '10 days', price: 'From $4,900', image: 'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80' },
-  { name: 'Istanbul VIP Experience', duration: '5 days', price: 'From $2,750', image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80' },
-  { name: 'Turkey Black Sea Tour', duration: '6 days', price: 'From $2,100', image: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80' },
-  { name: 'East Africa Safari', duration: '8 days', price: 'From $4,200', image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80' },
-  { name: 'Umrah & Hajj Premium Package', duration: '14 days', price: 'From $5,600', image: 'https://images.unsplash.com/photo-1546412414-8035b9a7a3b9?auto=format&fit=crop&w=1200&q=80' },
-  { name: 'Cappadocia Balloon Adventure', duration: '4 days', price: 'From $1,980', image: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=1200&q=80' },
-]
-
-const whyChooseUs = [
-  { icon: ShieldCheck, title: 'Secure Payments', description: 'Bank-grade payment processing and secure booking confirmations.' },
-  { icon: Clock3, title: '24/7 Support', description: 'Dedicated concierge service available around the clock.' },
-  { icon: Briefcase, title: 'Trusted Experts', description: 'Local specialists with premium travel and logistics knowledge.' },
-  { icon: Sparkles, title: 'Premium Experiences', description: 'Exclusive upgrades and refined itineraries for every trip.' },
-  { icon: MapPin, title: 'Best Hotel Deals', description: 'Negotiated rates at top hotels and resorts worldwide.' },
-  { icon: Globe2, title: 'Visa Assistance', description: 'Guidance for visa applications and document processing.' },
 ]
 
 const stats = [
@@ -321,72 +289,6 @@ function Home() {
                 <p className="mt-3 text-sm leading-6 text-slate-200">{banner.description}</p>
                 <Link to={banner.link} className="mt-6 inline-flex items-center rounded-full bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#0F172A] transition hover:bg-[#d48706]">{banner.cta}</Link>
               </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1400px] px-6 pb-16 lg:px-8 bg-[#111827]">
-        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-[0.32em] text-[#F59E0B]">Popular destinations</p>
-            <h2 className="mt-3 text-3xl font-semibold text-white">Explore our favorite luxury destinations</h2>
-          </div>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-          {destinationCards.map((destination) => (
-            <article key={destination.name} className="overflow-hidden rounded-[2rem] bg-slate-950/90 text-white shadow-[0_35px_90px_-55px_rgba(0,0,0,0.4)] transition hover:-translate-y-1 hover:shadow-[0_40px_100px_-55px_rgba(0,0,0,0.48)]">
-              <div className="relative h-80 overflow-hidden">
-                <img src={destination.image} alt={destination.name} className="h-full w-full object-cover" loading="lazy" decoding="async" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
-              </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-semibold text-white">{destination.name}</h3>
-                <p className="mt-4 text-sm leading-7 text-slate-300">{destination.description}</p>
-                <Link to="/tours" className="mt-6 inline-flex items-center text-sm font-semibold text-[#F59E0B]">Explore</Link>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1400px] px-6 pb-16 lg:px-8 bg-[#0F172A]">
-        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-[0.32em] text-[#F59E0B]">Special tour packages</p>
-            <h2 className="mt-3 text-3xl font-semibold text-white">Luxury packages built for memorable escapes</h2>
-          </div>
-        </div>
-        <div className="grid gap-6 xl:grid-cols-5">
-          {packageCards.map((packageItem) => (
-            <article key={packageItem.name} className="overflow-hidden rounded-[2rem] bg-slate-950/90 text-white shadow-[0_35px_90px_-55px_rgba(0,0,0,0.4)] transition hover:-translate-y-1 hover:shadow-[0_40px_100px_-55px_rgba(0,0,0,0.48)]">
-              <div className="relative h-80 overflow-hidden">
-                <img src={packageItem.image} alt={packageItem.name} className="h-full w-full object-cover" loading="lazy" decoding="async" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
-              </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-semibold text-white">{packageItem.name}</h3>
-                <div className="mt-4 grid gap-3 text-sm text-slate-300 sm:grid-cols-2">
-                  <span>Duration: {packageItem.duration}</span>
-                  <span>Destination: {packageItem.name.includes('Dubai') ? 'Dubai' : packageItem.name.includes('Istanbul') ? 'Istanbul' : 'Custom itinerary'}</span>
-                </div>
-                <p className="mt-4 text-sm text-slate-300">Highlights: Luxury planning, premium support, and tailored travel guidance.</p>
-                <p className="mt-3 text-sm text-slate-300">Services Included: Hotel access, transfers, visa support, and concierge assistance.</p>
-                <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#F59E0B]">Contact us for pricing</p>
-                <Link to="/contact" className="mt-6 inline-flex items-center rounded-full bg-[#F59E0B] px-5 py-3 text-sm font-semibold text-[#0F172A] transition hover:bg-[#d48706]">Request Quote</Link>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1400px] px-6 pb-16 lg:px-8 bg-[#111827]">
-        <div className="grid gap-6 lg:grid-cols-3">
-          {whyChooseUs.map((item) => (
-            <article key={item.title} className="rounded-[2rem] border border-white/10 bg-slate-950/90 p-8 text-white shadow-[0_30px_80px_-55px_rgba(0,0,0,0.35)] transition hover:-translate-y-1 hover:shadow-[0_40px_100px_-55px_rgba(0,0,0,0.45)]">
-              <item.icon className="h-12 w-12 rounded-3xl border border-[#F59E0B]/20 bg-[#F59E0B]/10 p-3 text-[#0F172A]" />
-              <h3 className="mt-6 text-2xl font-semibold text-white">{item.title}</h3>
-              <p className="mt-4 text-sm leading-7 text-slate-300">{item.description}</p>
             </article>
           ))}
         </div>
