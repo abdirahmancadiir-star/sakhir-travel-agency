@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { PlaneTakeoff, Truck, Bed, Globe2, ShieldCheck, Star } from 'lucide-react'
 
-// --- Qaybta Hero ---
+// 1. HERO SECTION
 function Hero() {
   return (
     <section className="relative min-h-[60vh] flex items-center justify-center bg-slate-950">
@@ -14,57 +14,83 @@ function Hero() {
   )
 }
 
-// --- Qaybta Booking ---
+// 2. BOOKING CENTER (Tabs)
 function BookingCenter() {
   const [activeTab, setActiveTab] = useState('Flight')
   return (
     <div className="max-w-4xl mx-auto -mt-20 relative z-20 bg-white p-6 rounded-3xl shadow-2xl">
-      <div className="flex gap-2 mb-6 border-b pb-4">
+      <div className="flex gap-2 mb-6 border-b pb-4 overflow-x-auto">
         {['Flight', 'Cargo', 'Hotel', 'Tour'].map(tab => (
-          <button key={tab} onClick={() => setActiveTab(tab)} className={`px-4 py-2 rounded-full ${activeTab === tab ? 'bg-[#F59E0B] text-white' : 'text-slate-500'}`}>
+          <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 py-2 rounded-full font-medium ${activeTab === tab ? 'bg-[#F59E0B] text-white' : 'text-slate-500 hover:bg-slate-100'}`}>
             {tab}
           </button>
         ))}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="text" placeholder="Origin" className="p-3 border rounded-xl" />
-        <input type="text" placeholder="Destination" className="p-3 border rounded-xl" />
-        <button className="bg-slate-900 text-white rounded-xl font-bold">Search</button>
+        <input type="text" placeholder="Origin" className="p-4 border rounded-xl" />
+        <input type="text" placeholder="Destination" className="p-4 border rounded-xl" />
+        <button className="bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition">Search {activeTab}</button>
       </div>
     </div>
   )
 }
 
-// --- Qaybta Services & Stats (Isururiyey) ---
-function InfoSection() {
+// 3. SERVICES GRID
+function Services() {
+  const services = [{ icon: PlaneTakeoff, title: 'Flights' }, { icon: Truck, title: 'Cargo' }, { icon: Bed, title: 'Hotels' }, { icon: Globe2, title: 'Tours' }]
   return (
-    <section className="py-20 max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12">
-      <div>
-        <h2 className="text-3xl font-bold mb-6">Why Sakhir Travel?</h2>
-        <div className="space-y-4">
-          <div className="flex items-center gap-4"><ShieldCheck className="text-[#F59E0B]" /> Secure Payments</div>
-          <div className="flex items-center gap-4"><Star className="text-[#F59E0B]" /> 24/7 Concierge Support</div>
+    <section className="py-20 max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6">
+      {services.map((s) => (
+        <div key={s.title} className="p-8 border border-slate-100 rounded-3xl hover:shadow-xl transition text-center bg-white">
+          <s.icon className="w-10 h-10 mx-auto text-[#F59E0B] mb-4" />
+          <h3 className="font-bold text-slate-900">{s.title}</h3>
         </div>
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        {[{t: '120+', l: 'Destinations'}, {t: '45+', l: 'Cargo Routes'}].map(s => (
-          <div key={s.t} className="p-6 bg-slate-50 rounded-2xl">
-            <p className="text-2xl font-bold">{s.t}</p>
-            <p className="text-sm text-slate-500">{s.l}</p>
-          </div>
-        ))}
+      ))}
+    </section>
+  )
+}
+
+// 4. DESTINATIONS
+function Destinations() {
+  const list = ['Dubai', 'Istanbul', 'Mecca', 'Nairobi'];
+  return (
+    <section className="py-20 bg-slate-50">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-3xl font-bold mb-10 text-center">Popular Destinations</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {list.map(d => (
+            <div key={d} className="relative h-64 rounded-2xl overflow-hidden group cursor-pointer">
+              <img src={`https://source.unsplash.com/featured/?${d}`} className="w-full h-full object-cover group-hover:scale-105 transition" alt={d} />
+              <div className="absolute inset-0 bg-black/20" />
+              <div className="absolute bottom-4 left-4 text-white font-bold text-xl">{d}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
 }
 
-// --- Home Main ---
+// 5. PROMOTIONS
+function Promotions() {
+  return (
+    <section className="py-20 bg-[#F59E0B] text-slate-900 text-center px-4">
+      <h2 className="text-3xl font-bold mb-4">Luxury Packages</h2>
+      <p className="mb-8 opacity-90 max-w-md mx-auto">Custom itineraries for your next escape with VIP support.</p>
+      <button className="bg-slate-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-black transition">View Packages</button>
+    </section>
+  )
+}
+
+// MAIN EXPORT
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-white">
       <Hero />
       <BookingCenter />
-      <InfoSection />
+      <Services />
+      <Destinations />
+      <Promotions />
     </main>
   )
 }
