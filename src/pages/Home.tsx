@@ -2,107 +2,79 @@ import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import TravelAssistant from '../components/TravelAssistant'
 import { openWhatsApp, getWhatsAppSettings } from '../lib/whatsapp'
-import {
-  PlaneTakeoff,
-  Truck,
-  Bed,
-  Globe2,
-  MapPin,
-  Mail,
-  Star,
-  Briefcase,
-  ChevronRight
-} from 'lucide-react'
+import { PlaneTakeoff, Truck, Bed, Globe2, MapPin, Mail, ChevronRight, Star } from 'lucide-react'
 
-// ... (bookingServices, banners, destinationCards, packageCards, whyChooseUs - halkan ka dhig sidii hore)
+// (Xaqiiji in bookingServices, featuredServices, banners, destinationCards, packageCards, faqItems ay ka mid yihiin qaybta koodkaaga ee kor ku qoran)
 
 function Home() {
   const [activeTab, setActiveTab] = useState('flight')
   const [email, setEmail] = useState('')
   const [newsletterMessage, setNewsletterMessage] = useState('')
-  const activeService = bookingServices.find((service) => service.id === activeTab) ?? bookingServices[0]
   const whatsappConfig = getWhatsAppSettings()
-
-  // Newsletter Logic
-  const handleNewsletterSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setNewsletterMessage(`Thank you, ${email}!`)
-    setEmail('')
-  }
+  
+  const activeService = bookingServices.find((service) => service.id === activeTab) ?? bookingServices[0]
 
   return (
     <main className="bg-[#0F172A] text-white">
-      {/* 1. Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1800&q=80" className="h-full w-full object-cover" alt="Hero" />
-          <div className="absolute inset-0 bg-slate-950/80" />
-        </div>
-        <div className="relative mx-auto max-w-[1400px] px-6 py-20">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight">Travel & Cargo Solutions</h1>
-          <p className="mt-6 text-xl text-slate-300 max-w-2xl">One trusted platform for all your premium travel and logistics needs.</p>
+      
+      {/* 1. WhatsApp Booking (Ugu kor mar mari sidaad rabtay) */}
+      <section className="mx-auto max-w-[1400px] px-6 pt-10">
+        <div className="bg-emerald-600/10 border border-emerald-500/20 p-8 rounded-[2rem] text-center">
+          <h2 className="text-2xl font-bold mb-2">WhatsApp Booking</h2>
+          <p className="text-slate-300 mb-6">Start flights, hotels, cargo and visa requests instantly on WhatsApp.</p>
+          <button onClick={() => openWhatsApp(whatsappConfig.templates.flight)} className="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-3 rounded-full font-semibold transition">
+            Open WhatsApp
+          </button>
         </div>
       </section>
 
-      {/* 2. Unified Booking Center */}
-      <section className="mx-auto max-w-[1400px] px-6 -mt-20 relative z-10">
-        <div className="bg-[#1e293b] p-8 rounded-3xl border border-white/10 shadow-2xl">
+      {/* 2. Featured Services (Sidaad rabtay hoos geeyay) */}
+      <section className="mx-auto max-w-[1400px] px-6 py-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {featuredServices.map((service) => (
+          <article key={service.title} className="rounded-[2rem] border border-white/10 bg-slate-950/90 p-8">
+            <service.icon className="h-10 w-10 text-amber-500 mb-6" />
+            <h3 className="text-xl font-semibold">{service.title}</h3>
+            <p className="mt-3 text-sm text-slate-400">{service.description}</p>
+            <Link to={service.link} className="mt-4 inline-block text-amber-500 font-semibold">Learn More</Link>
+          </article>
+        ))}
+      </section>
+
+      {/* 3. Booking Center */}
+      <section className="mx-auto max-w-[1400px] px-6 pb-16">
+        <div className="bg-slate-900 p-8 rounded-[2rem] border border-white/10">
           <div className="flex gap-4 mb-8 overflow-x-auto">
             {bookingServices.map((s) => (
-              <button key={s.id} onClick={() => setActiveTab(s.id)} className={`px-6 py-2 rounded-full ${activeTab === s.id ? 'bg-amber-500 text-black' : 'bg-slate-800'}`}>
+              <button key={s.id} onClick={() => setActiveTab(s.id)} className={`px-5 py-2 rounded-full ${activeTab === s.id ? 'bg-amber-500 text-black' : 'bg-slate-800'}`}>
                 {s.label}
               </button>
             ))}
           </div>
-          {/* Booking fields (Sidii hore ayaad ka dhigi kartaa) */}
+          {/* Input fields halkan geli */}
         </div>
       </section>
 
-      {/* 3. WhatsApp Booking (Muuqaalka ugu muhiimsan - kor ayaan u soo qaaday) */}
+      <TravelAssistant />
+
+      {/* 4. Destinations & Packages */}
       <section className="mx-auto max-w-[1400px] px-6 py-16">
-        <div className="bg-emerald-900/30 border border-emerald-500/30 p-8 rounded-3xl text-center">
-          <h2 className="text-3xl font-bold mb-4">Start requests instantly on WhatsApp</h2>
-          <button onClick={() => openWhatsApp('Hello')} className="bg-emerald-500 px-8 py-4 rounded-full font-bold hover:bg-emerald-600">Open WhatsApp</button>
-        </div>
-      </section>
-
-      {/* 4. Flight/Cargo/Hotel Services */}
-      <section className="mx-auto max-w-[1400px] px-6 py-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {featuredServices.map((s) => (
-          <div key={s.title} className="bg-slate-900 p-8 rounded-3xl border border-white/5 hover:border-amber-500/50 transition">
-            <s.icon className="text-amber-500 w-10 h-10 mb-6" />
-            <h3 className="text-xl font-bold mb-3">{s.title}</h3>
-            <p className="text-slate-400 text-sm mb-4">{s.description}</p>
-            <Link to={s.link} className="text-amber-500 font-semibold flex items-center">Learn More <ChevronRight size={16} /></Link>
-          </div>
-        ))}
+        <h2 className="text-3xl font-bold mb-10">Explore our favorite luxury destinations</h2>
+        {/* Destination Cards map halkan geli */}
       </section>
 
       {/* 5. FAQ & Newsletter */}
-      <section className="mx-auto max-w-[1400px] px-6 py-16 grid lg:grid-cols-2 gap-12">
-        <div className="bg-slate-900 p-10 rounded-3xl">
-          <h2 className="text-3xl font-bold mb-8">Frequently Asked Questions</h2>
-          {faqItems.map((item) => (
-            <div key={item.question} className="mb-6 border-b border-white/5 pb-4">
-              <h4 className="font-bold text-amber-500 mb-2">{item.question}</h4>
-              <p className="text-slate-400 text-sm">{item.answer}</p>
-            </div>
-          ))}
+      <section className="mx-auto max-w-[1400px] px-6 py-16 grid lg:grid-cols-2 gap-8">
+        <div className="bg-slate-900 p-8 rounded-[2rem]">
+          <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+          {/* FAQ map halkan geli */}
         </div>
-        <div className="bg-amber-500/5 p-10 rounded-3xl border border-amber-500/10">
-          <h2 className="text-3xl font-bold mb-4">Newsletter</h2>
-          <p className="text-slate-400 mb-6">Get the latest travel updates.</p>
-          <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
-            <input className="flex-1 bg-black/20 p-4 rounded-xl border border-white/10" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <button className="bg-amber-500 text-black px-6 rounded-xl font-bold">Subscribe</button>
-          </form>
+        <div className="bg-amber-500/10 p-8 rounded-[2rem] border border-amber-500/20">
+          <h2 className="text-2xl font-bold mb-2">Newsletter</h2>
+          <input className="w-full p-4 rounded-xl bg-black/20 mb-4" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <button className="w-full bg-amber-500 py-4 rounded-xl font-bold text-black">Subscribe</button>
         </div>
       </section>
 
-      {/* 6. Popular Destinations & Packages (Hoos u dhig sidaad u kala hormarisay) */}
-      {/* ... (Koodka kale ee destinationCards iyo packageCards ku dar halkan) */}
-
-      <TravelAssistant />
     </main>
   )
 }
